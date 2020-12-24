@@ -2,7 +2,7 @@
 import grid_monitoring as gm
 import telegram
 #token that can be generated talking with @BotFather on telegram
-my_token = '1300902813:AAHVQVfmNfo8vATRAmVzLpifIPoUgYv-juE'
+my_token = 'bot_token'
 
 def send(msg, chat_id, token=my_token):
     """
