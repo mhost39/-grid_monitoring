@@ -122,6 +122,29 @@ def check_gateways():
 
     return info_log
 
+PUBLIC_IP_FARMS = {"devnet": "lochristi_dev_lab", "testnet": "freefarm", "mainnet": "freefarm"}
+DEFAULT_EXPLORER_URLS = {
+    "mainnet": "https://explorer.grid.tf/api/v1",
+    "testnet": "https://explorer.testnet.grid.tf/api/v1",
+    "devnet": "https://explorer.devnet.grid.tf/api/v1",
+}
+
+def get_public_ip_usage(explorer_name: str = "devnet"):
+    explorer = j.clients.explorer.get_by_url(DEFAULT_EXPLORER_URLS[explorer_name])
+    c = 0
+    if not explorer_name in ["devnet", "testnet", "mainnet"]:
+        raise j.exceptions.Value(f"Explorers: devnet, testnet, mainnet are only supported, you passed {explorer_name}")
+    farm = explorer.farms.get(farm_name=PUBLIC_IP_FARMS[explorer_name])
+    for ip in farm.ipaddresses:
+        if not ip.reservation_id:
+            continue
+        c += 1
+        workload = explorer.workloads.get(ip.reservation_id)
+        owner_tid = workload.info.customer_tid
+        user = explorer.users.get(owner_tid)
+        print(f"user: {user.name:30}|\ttid: {owner_tid:<5}|\twid: {workload.id}")
+
+    return [f"{explorer_name} IPs \n busy:: {c} | free:: {len(farm.ipaddresses)-c} | total:: {len(farm.ipaddresses)}"]
 
 def check_grid():
     
@@ -129,8 +152,9 @@ def check_grid():
     e2 = check_wallets()
     e3 = check_gateways()
     e4 = check_threefold_services()
-    return [e1, e2, e3, e4]
+    e5 = get_public_ip_usage("devnet")
+    e6 = get_public_ip_usage("testnet")
+    return [e1, e2, e3, e4, e5, e6]
 
 # if __name__ == "__main__":
-#     x = check_grid()
-
+#     get_public_ip_usage("testnet")
