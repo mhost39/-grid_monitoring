@@ -4,7 +4,7 @@ from jumpscale.data.time import utcnow as now
 from jumpscale.clients.stellar.wrapped import Server
 from jumpscale.clients.stellar.balance import AccountBalances, Balance
 
-_THREEFOLDFOUNDATION_TFTSTELLAR_SERVICES = {"TEST": "https://testnet.threefold.io", "STD": "https://tokenservices.threefold.io"}
+_THREEFOLDFOUNDATION_TFTSTELLAR_SERVICES = {"STD": "https://tokenservices.threefold.io"} # "TEST": "https://testnet.threefold.io"
 _HORIZON_NETWORKS = {"TEST": "https://horizon-testnet.stellar.org", "STD": "https://horizon.stellar.org"}
 
 
@@ -34,14 +34,15 @@ WALLETS = {
     "testnet": {"addr":""},
     "devnet": {"addr":""},
     "tft_faucet_testnet": {"addr":"GBK7KX7KSOK2IISWPS3LWIBWJ2XTRJCST3W5MEUKKY5NGKNO5KBF6ZQI", "TFT":10},
-    "polls_mainnet": {"addr":"GBL6CIPM3CJLVTDLL5CIYGCAKOK7SZ3BXU5S3QSYDH4KCU2SZUA5VIMC", "TFT":10}, 
     "trader_mainnet": {"addr":"GA4YOREDKBA5AIUGFERRL4XRXHDX3467M7YRYQVYIPOCABZBXGQMURBY", "TFT":10},
     "itenv_mainnet": {"addr": "GDYTMB2TLKGTYGY3ZTURZ7F36BVYECQXBKZBZ6X6XSFWLUXC4VGXSUIL", "TFT":10},
     "3botdeployer_mainnet": {"addr":"GD2G5KZE37CT43RLYJL6XS5JVU7JPO7EVKWLDGC36GTW5NMLVI3FSHHG", "TFT":100},
     "3botdeployer_testnet": {"addr":"GCGZ7OFC47KA45OW4EEPPJ7NKHLY2FKRKAZFAGHUE2N6WAXGCKNZ3JPW", "TFT":100},
     "marketplace_testnet": {"addr":"GCGZ7OFC47KA45OW4EEPPJ7NKHLY2FKRKAZFAGHUE2N6WAXGCKNZ3JPW", "TFT":100},
-    "activation_service_mainnet": {"addr": "GCKLGWHEYT2V63HC2VDJRDWEY3G54YSHHPOA6Q3HAPQUGA5OZDWZL7KW", "XLM":50}
+    "activation_service_mainnet": {"addr": "GCKLGWHEYT2V63HC2VDJRDWEY3G54YSHHPOA6Q3HAPQUGA5OZDWZL7KW", "XLM":50},
+    "explorer_mainnet": {"addr": "GB44ZXTSQCJEIVP3ROBXXA3VXJFBSATG5HPRSGRFYLYRIHJK6K27CT2F", "XLM":20},
 }
+    # "polls_mainnet": {"addr":"GBL6CIPM3CJLVTDLL5CIYGCAKOK7SZ3BXU5S3QSYDH4KCU2SZUA5VIMC", "TFT":10}, 
 
 def check_threefold_services():
     info_log = []
@@ -130,6 +131,15 @@ DEFAULT_EXPLORER_URLS = {
 }
 
 def get_public_ip_usage(explorer_name: str = "devnet"):
+    # WORDS="gravity wrong kite horror crystal cube useless maid style require oven scrap share party crumble dolphin group foster segment apart amazing stairs learn tribe"
+    # EMAIL="mhost39@gmail.com"
+    # explorer_url = "https://explorer.testnet.grid.tf/api/v1"
+    # identity = j.core.identity.new(
+    #         "test125", tname="mohassan.3bot", email=EMAIL, words=WORDS, explorer_url=explorer_url
+    #     )
+    # identity.register()
+    # identity.set_default()
+
     explorer = j.clients.explorer.get_by_url(DEFAULT_EXPLORER_URLS[explorer_name])
     c = 0
     if not explorer_name in ["devnet", "testnet", "mainnet"]:

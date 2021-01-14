@@ -1,4 +1,5 @@
 # first install telegram package: pip3 install python-telegram-bot
+# cronjob: cd ~/js-sdk/ && git checkout development_vdc && poetry shell & python3 ~/grid_monitoring/bot.py
 import grid_monitoring as gm
 import telegram
 #token that can be generated talking with @BotFather on telegram
