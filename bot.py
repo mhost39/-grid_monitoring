@@ -20,4 +20,4 @@ if __name__ == "__main__":
             separator = '\n'
             m = separator.join(errors)
             
-            send(msg=m, chat_id=group_id, token=my_token)
+            send(msg=m, chat_id="group_id", token=my_token)

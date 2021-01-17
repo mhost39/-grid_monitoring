@@ -131,14 +131,6 @@ DEFAULT_EXPLORER_URLS = {
 }
 
 def get_public_ip_usage(explorer_name: str = "devnet"):
-    # WORDS="gravity wrong kite horror crystal cube useless maid style require oven scrap share party crumble dolphin group foster segment apart amazing stairs learn tribe"
-    # EMAIL="mhost39@gmail.com"
-    # explorer_url = "https://explorer.testnet.grid.tf/api/v1"
-    # identity = j.core.identity.new(
-    #         "test125", tname="mohassan.3bot", email=EMAIL, words=WORDS, explorer_url=explorer_url
-    #     )
-    # identity.register()
-    # identity.set_default()
 
     explorer = j.clients.explorer.get_by_url(DEFAULT_EXPLORER_URLS[explorer_name])
     c = 0
