@@ -2,6 +2,8 @@
 # cronjob: cd ~/js-sdk/ && git checkout development_vdc && poetry shell & python3 ~/grid_monitoring/bot.py
 import grid_monitoring as gm
 import telegram
+import os
+
 #token that can be generated talking with @BotFather on telegram
 my_token = 'bot_token'
 
