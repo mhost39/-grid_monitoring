@@ -14,10 +14,12 @@ def send(msg, chat_id, token=my_token):
     bot.sendMessage(chat_id=chat_id, text=msg)
 
 if __name__ == "__main__":
+    my_token = os.environ.get("TOKEN")
+    chat_id = os.environ.get("CHAT_ID")
     gm_result = gm.check_grid()
     for errors in gm_result:
         if errors:
             separator = '\n'
             m = separator.join(errors)
             
-            send(msg=m, chat_id="group_id", token=my_token)
+            send(msg=m, chat_id=chat_id, token=my_token)

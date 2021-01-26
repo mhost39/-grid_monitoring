@@ -4,6 +4,8 @@ from jumpscale.data.time import utcnow as now
 from jumpscale.clients.stellar.wrapped import Server
 from jumpscale.clients.stellar.balance import AccountBalances, Balance
 
+import os
+
 _THREEFOLDFOUNDATION_TFTSTELLAR_SERVICES = {"STD": "https://tokenservices.threefold.io"} # "TEST": "https://testnet.threefold.io"
 _HORIZON_NETWORKS = {"TEST": "https://horizon-testnet.stellar.org", "STD": "https://horizon.stellar.org"}
 
@@ -148,14 +150,29 @@ def get_public_ip_usage(explorer_name: str = "devnet"):
 
     return [f"{explorer_name} IPs \n busy:: {c} | free:: {len(farm.ipaddresses)-c} | total:: {len(farm.ipaddresses)}"]
 
-def check_grid():
-    
+def check_grid(self):
+    needed_vars = ["TNAME", "EMAIL", "WORDS"]
+    for var in needed_vars:
+        value = os.environ.get(var)
+        if not value:
+            raise ValueError(f"Please add {var} as environment variables")
+        setattr(self, var.lower(), value)
+    explorer_url = "https://explorer.testnet.grid.tf/api/v1"
+    identity_name = j.data.random_names.random_name()
+    identity = j.core.identity.new(
+        identity_name, tname=self.tname, email=self.email, words=self.words, explorer_url=explorer_url
+    )
+    identity.register()
+    identity.set_default()
+
     e1 = check_explorers()
     e2 = check_wallets()
     e3 = check_gateways()
     e4 = check_threefold_services()
     e5 = get_public_ip_usage("devnet")
     e6 = get_public_ip_usage("testnet")
+
+    j.core.identity.delete(identity_name)
     return [e1, e2, e3, e4, e5, e6]
 
 # if __name__ == "__main__":

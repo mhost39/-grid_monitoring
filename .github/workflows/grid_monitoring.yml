@@ -39,7 +39,13 @@ jobs:
           cd js-sdk
           python3 -m pip install dist/*.whl
       - name: run bot script
+        env:
+          TNAME: ${{ secrets.TNAME }}
+          EMAIL: ${{ secrets.EMAIL }}
+          WORDS: ${{ secrets.WORDS }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          TOKEN: ${{ secrets.TOKEN }}
         run: |
           cp bot.py js-sdk
           cp grid_monitoring.py js-sdk
-          cd js-sdk && poetry shell & python3 bot.py
+          sudo --preserve-env=TNAME --preserve-env=EMAIL --preserve-env=WORDS --preserve-env=CHAT_ID --preserve-env=TOKEN && cd js-sdk && poetry shell & python3 bot.py
