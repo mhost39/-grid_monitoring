@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: master
       - name: Gathering dependencies
         run: |
           sudo apt-get update
@@ -20,24 +22,9 @@ jobs:
       - name: Install
         run: |
           cd js-sdk
-          sudo poetry install
           git checkout development_vdc
-      - name: Validates pyproject.toml
-        run: |
-          cd js-sdk
-          poetry check
-      - name: Build the wheels archives
-        run: |
-          cd js-sdk
-          poetry build --format wheel
-      - name: Making Sure The wheels Spin right
-        run: |
-          cd js-sdk
-          check-wheel-contents --ignore W002 dist/*.whl
-      - name: confirm that the wheel is pip-installable
-        run: |
-          cd js-sdk
-          python3 -m pip install dist/*.whl
+          sudo poetry install
       - name: run bot script
         run: |
-          cd js-sdk && poetry shell & python3 ~/grid_monitoring/bot.py
+          cd js-sdk
+          poetry run python3 ../bot.py
