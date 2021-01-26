@@ -3,6 +3,8 @@ name: js-sdk-check-wheel
 on:
   schedule:
     - cron:  '*/5 * * * *'
+  push:
+    branches: [ master ]
 
 jobs:
   chec-the-wheels:
