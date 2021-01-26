@@ -40,5 +40,4 @@ jobs:
           python3 -m pip install dist/*.whl
       - name: run bot script
         run: |
-          cd js-sdk
-          poetry run python3 ../bot.py
+          cd js-sdk && poetry shell & python3 ../bot.py
