@@ -15,10 +15,14 @@ def send(msg, chat_id, token=my_token):
     bot = telegram.Bot(token=token)
     bot.sendMessage(chat_id=chat_id, text=msg)
 
+class Test:
+    pass
+
 if __name__ == "__main__":
     my_token = os.environ.get("TOKEN")
     chat_id = os.environ.get("CHAT_ID")
-    gm_result = gm.check_grid()
+    self = Test()
+    gm_result = gm.check_grid(self)
     for errors in gm_result:
         if errors:
             separator = '\n'
