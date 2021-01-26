@@ -34,10 +34,6 @@ jobs:
         run: |
           cd js-sdk
           poetry build --format wheel
-      - name: Making Sure The wheels Spin right
-        run: |
-          cd js-sdk
-          check-wheel-contents --ignore W002 dist/*.whl
       - name: confirm that the wheel is pip-installable
         run: |
           cd js-sdk
