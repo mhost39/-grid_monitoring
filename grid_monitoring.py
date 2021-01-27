@@ -32,7 +32,7 @@ EXPLORERS = {
 }
 
 WALLETS = {
-    "mainnet": { "addr": "GB44ZXTSQCJEIVP3ROBXXA3VXJFBSATG5HPRSGRFYLYRIHJK6K27CT2F", "TFT":1000, "XLM":20},
+    "mainnet": { "addr": "GB44ZXTSQCJEIVP3ROBXXA3VXJFBSATG5HPRSGRFYLYRIHJK6K27CT2F", "XLM":500},
     "testnet": {"addr":""},
     "devnet": {"addr":""},
     "tft_faucet_testnet": {"addr":"GBK7KX7KSOK2IISWPS3LWIBWJ2XTRJCST3W5MEUKKY5NGKNO5KBF6ZQI", "TFT":10},
@@ -92,6 +92,8 @@ def check_wallets():
             if asset_code.upper() in ASSETS and asset_code in walletinfo:
                 notlessthanX = walletinfo[balance.asset_code]
                 if int(float(balance.balance)) < notlessthanX:
+                    if wname == "mainnet":
+                        wname = "explorer"
                     info_log.append(f"{wname} wallet on {network} balance {balance} is less than {notlessthanX} , needs funding") 
                 else:
                     print(f"{wname} wallet on {network} balance {balance} is ok, greater than {notlessthanX}") 
