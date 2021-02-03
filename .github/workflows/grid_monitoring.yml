@@ -21,7 +21,6 @@ jobs:
           sudo pip3 install check-wheel-contents poetry
           sudo pip3 install python-telegram-bot
           git clone https://github.com/threefoldtech/js-sdk.git
-          git clone https://github.com/mhost39/grid_monitoring.git
       - name: Install
         run: |
           cd js-sdk
@@ -47,6 +46,6 @@ jobs:
           CHAT_ID: ${{ secrets.CHAT_ID }}
           TOKEN: ${{ secrets.TOKEN }}
         run: |
-          cp grid_monitoring/bot.py js-sdk
-          cp grid_monitoring/grid_monitoring.py js-sdk
+          cp bot.py js-sdk
+          cp grid_monitoring.py js-sdk
           sudo --preserve-env=TNAME --preserve-env=EMAIL --preserve-env=WORDS --preserve-env=CHAT_ID --preserve-env=TOKEN && cd js-sdk && poetry shell & python3 bot.py

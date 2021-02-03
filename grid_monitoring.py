@@ -35,16 +35,19 @@ WALLETS = {
     "mainnet": { "addr": "GB44ZXTSQCJEIVP3ROBXXA3VXJFBSATG5HPRSGRFYLYRIHJK6K27CT2F", "XLM":500},
     "testnet": {"addr":""},
     "devnet": {"addr":""},
-    "tft_faucet_testnet": {"addr":"GBK7KX7KSOK2IISWPS3LWIBWJ2XTRJCST3W5MEUKKY5NGKNO5KBF6ZQI", "TFT":10},
     "trader_mainnet": {"addr":"GA4YOREDKBA5AIUGFERRL4XRXHDX3467M7YRYQVYIPOCABZBXGQMURBY", "TFT":10},
     "itenv_mainnet": {"addr": "GDYTMB2TLKGTYGY3ZTURZ7F36BVYECQXBKZBZ6X6XSFWLUXC4VGXSUIL", "TFT":10},
     "3botdeployer_mainnet": {"addr":"GD2G5KZE37CT43RLYJL6XS5JVU7JPO7EVKWLDGC36GTW5NMLVI3FSHHG", "TFT":100},
-    "3botdeployer_testnet": {"addr":"GCGZ7OFC47KA45OW4EEPPJ7NKHLY2FKRKAZFAGHUE2N6WAXGCKNZ3JPW", "TFT":100},
-    "marketplace_testnet": {"addr":"GCGZ7OFC47KA45OW4EEPPJ7NKHLY2FKRKAZFAGHUE2N6WAXGCKNZ3JPW", "TFT":100},
+    "3botdeployer_testnet": {"addr":"GBUG3IRHFPFTK4FZWZ443QF6ZJOQFEGEUOSHBG2XYXZYZPH4WLRNPTV7", "TFT":10},
+    "3botdeployer_devnet": {"addr":"GD547XQCD5YMUT7DB3LRNZJYQTQY3B3RWDLV36HUNEJSBFYDSOQLS6ZV", "TFT":10},
+    "marketplace_testnet": {"addr":"GAIAPQH253RYJDVBUI3VFIQBHJLSBV26WIDRAUONNTQAE5RUIA76X74U", "TFT":10},
+    "marketplace_devnet": {"addr":"GAIAPQH253RYJDVBUI3VFIQBHJLSBV26WIDRAUONNTQAE5RUIA76X74U", "TFT":10},
     "activation_service_mainnet": {"addr": "GCKLGWHEYT2V63HC2VDJRDWEY3G54YSHHPOA6Q3HAPQUGA5OZDWZL7KW", "XLM":50},
     "explorer_mainnet": {"addr": "GB44ZXTSQCJEIVP3ROBXXA3VXJFBSATG5HPRSGRFYLYRIHJK6K27CT2F", "XLM":20},
+    "vdc_init_testnet": {"addr": "GA4THK7I6ME27FYW5JCIHM5QI36TPXC2U6NUCH3YIKZLT6BIFOE4P2OQ", "TFT":100}
 }
-    # "polls_mainnet": {"addr":"GBL6CIPM3CJLVTDLL5CIYGCAKOK7SZ3BXU5S3QSYDH4KCU2SZUA5VIMC", "TFT":10}, 
+    # "polls_mainnet": {"addr":"GBL6CIPM3CJLVTDLL5CIYGCAKOK7SZ3BXU5S3QSYDH4KCU2SZUA5VIMC", "TFT":10},
+    # "tft_faucet_testnet": {"addr":"GBK7KX7KSOK2IISWPS3LWIBWJ2XTRJCST3W5MEUKKY5NGKNO5KBF6ZQI", "TFT":10},
 
 def check_threefold_services():
     info_log = []
@@ -81,7 +84,7 @@ def check_wallets():
         if not walletinfo:
             print(f"skipping {wname}")
             continue
-        network = "STD" if "main" in wname.lower() else "TEST"
+        network = "STD" #if "main" in wname.lower() else "TEST"
         waddress = walletinfo.get("addr", "")
         if not waddress:
             # info_log.append(f"skipping checks for {wname} {walletinfo}")
@@ -119,7 +122,8 @@ def check_gateways():
                 ten_mins_ago = now().timestamp - (60 * 10)
                 amonth_ago = now().timestamp - (60*60*24*30)
                 if gw["updated"] < ten_mins_ago and gw["updated"] > amonth_ago:
-                    info_log.append(f"{expname}:: {expurl} :: gateway {gw_id} on {gw_node_id} is down 💣")
+                    if gw_id != 19 and gw_node_id != "23z8M5DVdbWwmBWaR3mmsDrzUf76iqeYhSWeSXXDR5nE":
+                        info_log.append(f"{expname}:: {expurl} :: gateway {gw_id} on {gw_node_id} is down 💣")
                 # else:
                 #     info_log.append(f"{expname}:: {expurl} :: gateway {gw_id} on {gw_node_id} is up ✅")
         except Exception as e:
@@ -178,4 +182,4 @@ def check_grid(self):
     return [e1, e2, e3, e4, e5, e6]
 
 # if __name__ == "__main__":
-#     get_public_ip_usage("testnet")
+#     print(check_grid(self))
